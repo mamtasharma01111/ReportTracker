@@ -83,7 +83,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 max-w-full mx-auto font-sans">
+    <div className="p-8 max-w-full mx-auto font-sans min-h-screen bg-gradient-to-br from-blue-50 to-blue-50">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-extrabold text-gray-900 tracking-wide">📋 Report Dashboard</h1>
         <button
