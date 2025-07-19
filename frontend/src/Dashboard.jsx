@@ -121,7 +121,7 @@ const Dashboard = () => {
                   <FaEye />
                 </button>
               </td>
-              <td className="border p-2">
+              <td className="border p-2 ">
                 <button
                   className="text-green-600 hover:text-green-800 mr-3"
                   onClick={() =>
