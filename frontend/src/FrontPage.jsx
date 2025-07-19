@@ -6,12 +6,10 @@ const FrontPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 flex flex-col">
 
-      {/* Header with animation */}
       <header className="w-full shadow-md py-8 px-6 flex justify-between items-center animate-fade-in-down">
       
       </header>
 
-      {/* Main Content */}
       <main className="flex-grow flex flex-col items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 animate-fade-in">
