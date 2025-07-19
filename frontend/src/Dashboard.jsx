@@ -44,12 +44,17 @@ const Dashboard = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/entries")
-      .then((res) => setEntries(res.data))
-      .catch(console.error);
-  }, []);
+ useEffect(() => {
+  axios
+    .get("http://localhost:5000/entries")
+    .then((res) => {
+      const sorted = res.data.sort((a, b) =>
+        a._id.localeCompare(b._id)
+      );
+      setEntries(sorted);
+    })
+    .catch(console.error);
+}, []);
 
   const handleAuthRequired = (actionFn) => {
     setPendingAction(() => actionFn);
