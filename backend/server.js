@@ -11,6 +11,7 @@ const EntrySchema = new mongoose.Schema({
    lotNo: Number,
    lotSize: String,
    UnitNo: String,
+   customerName: String,
   reports: [String],
 }, { timestamps: true });
 
