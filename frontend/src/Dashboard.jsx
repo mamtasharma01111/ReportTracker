@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
+import { FixedSizeList as List } from 'react-window';
 
 const orderedReports = [
   { id: "BareBoard MB", name: "Bare Board Inspection Report MB" },
@@ -196,7 +197,7 @@ useEffect(() => {
 
 const ReportsModal = ({ entry, onClose }) => (
   <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-    <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] overflow-y-auto relative p-6">
+    <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] overflow-hidden relative p-6">
       <button
         onClick={onClose}
         className="absolute top-3 right-4 text-2xl font-bold text-gray-500 hover:text-gray-900 transition"
@@ -207,29 +208,36 @@ const ReportsModal = ({ entry, onClose }) => (
       <h2 className="text-2xl font-bold mb-5 text-gray-900 tracking-wide border-b-2 border-gray-200 pb-3">
         📄 Reports for Lot No: {entry.lotNo}
       </h2>
-      <ul className="space-y-4 max-h-[60vh] overflow-y-auto">
-        {orderedReports.map(({ id, name }) => (
-          <li
-            key={id}
-            className={`flex items-center text-sm ${
-              entry.reports.includes(id)
-                ? "text-gray-900 font-semibold"
-                : "text-gray-400"
-            }`}
-          >
-            <input
-              type="checkbox"
-              readOnly
-              checked={entry.reports.includes(id)}
-              className="mr-3 w-4 h-4 rounded border-gray-300 text-blue-600 cursor-default"
-            />
-            {name}
-          </li>
-        ))}
-      </ul>
+      <List
+        height={400}
+        itemCount={orderedReports.length}
+        itemSize={40} 
+        width="100%"
+      >
+        {({ index, style }) => {
+          const { id, name } = orderedReports[index];
+          const isChecked = entry.reports.includes(id);
+          return (
+            <li
+              key={id}
+              className={`flex items-center text-sm ${isChecked ? 'text-gray-900 font-semibold' : 'text-gray-400'}`}
+              style={style}
+            >
+              <input
+                type="checkbox"
+                readOnly
+                checked={isChecked}
+                className="mr-3 w-4 h-4 rounded border-gray-300 text-blue-600 cursor-default"
+              />
+              {name}
+            </li>
+          );
+        }}
+      </List>
     </div>
   </div>
 );
+
 
 const AddForm = ({ onClose, onSubmit, initialData }) => {
   const [form, setForm] = useState(
