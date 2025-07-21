@@ -88,7 +88,7 @@ useEffect(() => {
   return (
     <div className="p-8 max-w-full mx-auto font-sans min-h-screen bg-gradient-to-br from-blue-50 to-blue-50">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-extrabold text-gray-900 tracking-wide">📋 Report Dashboard</h1>
+        <h1 className="text-4xl font-extrabold text-gray-900 tracking-wide">📋 Reports Dashboard</h1>
         <button
           className="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition"
           onClick={() =>
