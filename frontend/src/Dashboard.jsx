@@ -34,7 +34,12 @@ const orderedReports = [
   { id: "Final Functional Test", name: "Final Functional Test Report" },
 ];
 
-const ADMIN_PASSCODE = "admin123";
+const ADMIN_PASSCODE = process.env.REACT_APP_ADMIN_PASSCODE;
+
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+console.log(`API Base URL: ${BASE_URL}`);
+console.log(`Admin Passcode: ${ADMIN_PASSCODE}`);
 
 const Dashboard = () => {
   const [entries, setEntries] = useState([]);
@@ -44,13 +49,11 @@ const Dashboard = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
 
- useEffect(() => {
+useEffect(() => {
   axios
-    .get("http://localhost:5000/entries")
+    .get(`${BASE_URL}/entries`)
     .then((res) => {
-      const sorted = res.data.sort((a, b) =>
-        a._id.localeCompare(b._id)
-      );
+      const sorted = res.data.sort((a, b) => a._id.localeCompare(b._id));
       setEntries(sorted);
     })
     .catch(console.error);
@@ -64,13 +67,13 @@ const Dashboard = () => {
   const upsertEntry = async (entry) => {
     if (editIndex !== null) {
       const id = entries[editIndex]._id;
-      const res = await axios.put(`http://localhost:5000/entries/${id}`, entry);
+      const res = await axios.put(`${BASE_URL}/entries/${id}`, entry);
       const updated = [...entries];
       updated[editIndex] = res.data;
       setEntries(updated);
       setEditIndex(null);
     } else {
-      const res = await axios.post("http://localhost:5000/entries", entry);
+      const res = await axios.post(`${BASE_URL}/entries`, entry);
       setEntries([ ...entries, res.data]);
     }
     setShowForm(false);
@@ -78,7 +81,7 @@ const Dashboard = () => {
 
   const removeEntry = async (index) => {
     const id = entries[index]._id;
-    await axios.delete(`http://localhost:5000/entries/${id}`);
+    await axios.delete(`${BASE_URL}/entries/${id}`);
     setEntries(entries.filter((_, i) => i !== index));
   };
 
